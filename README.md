@@ -1,2 +1,2 @@
 # Clean
-A beautiful, clean, and efficient digital watch face for Pebble and Pebble Steel.
+A minimal and efficient digital watch face for Pebble and Pebble Steel.
