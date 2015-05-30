@@ -1,0 +1,34 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "shawn.lutch94@gmail.com",
+    "longName": "CleanFace",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "characterRegex": "[ADFJMNOSabcdefgjlmnoprstuvy0-9 ]",
+                "file": "fonts/DS-DIGI.TTF",
+                "name": "FONT_MONTH_28",
+                "type": "font"
+            },
+            {
+                "characterRegex": "[:0-9]",
+                "compatibility": "2.7",
+                "file": "fonts/DS-DIGIB.TTF",
+                "name": "FONT_CLOCK_54",
+                "type": "font"
+            }
+        ]
+    },
+    "sdkVersion": "2",
+    "shortName": "Clean",
+    "uuid": "1713273c-2c9e-4195-aa98-12f35aa84e5c",
+    "versionCode": 1,
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
