@@ -3,11 +3,16 @@
     "capabilities": [
         ""
     ],
-    "companyName": "shawn.lutch94@gmail.com",
-    "longName": "CleanFace",
+    "companyName": "Shawn Lutch",
+    "longName": "Clean",
     "projectType": "native",
     "resources": {
         "media": [
+            {
+                "file": "images/1.png",
+                "name": "IMAGE_THUMBNAIL",
+                "type": "png"
+            },
             {
                 "characterRegex": "[ADFJMNOSabcdefgjlmnoprstuvy0-9 ]",
                 "file": "fonts/DS-DIGI.TTF",

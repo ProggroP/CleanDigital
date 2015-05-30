@@ -15,8 +15,8 @@ static void unload_resources();
 static void main_window_load(Window *w);
 static void main_window_unload(Window *w);
 
-static void update_all();
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed);
+static void battery_handler(BatteryChargeState charge_state);
 
 
 // fields
@@ -47,6 +47,7 @@ static void init()
 	window_stack_push(s_main_window, true);
 	
 	tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+	battery_state_service_subscribe(battery_handler);
 }
 
 static void deinit()
@@ -90,7 +91,8 @@ static void main_window_load(Window *w)
 	text_layer_set_font(s_date_layer, s_font_date);
 	layer_add_child(window_get_root_layer(w), text_layer_get_layer(s_date_layer));
 	
-	update_all();
+	update_time(s_clock_layer, s_tick_time);
+	update_date(s_date_layer, s_tick_time);
 }
 
 static void main_window_unload(Window *w)
@@ -100,18 +102,16 @@ static void main_window_unload(Window *w)
 	text_layer_destroy(s_date_layer);
 }
 
-
-static void update_all()
+static void tick_handler(struct tm *tick_time, TimeUnits units_changed)
 {
-	update_battery(s_battery_layer);
+	s_tick_time = tick_time;
 	update_time(s_clock_layer, s_tick_time);
 	update_date(s_date_layer, s_tick_time);
 }
 
-static void tick_handler(struct tm *tick_time, TimeUnits units_changed)
+static void battery_handler(BatteryChargeState charge_state)
 {
-	s_tick_time = tick_time;
-	update_all();
+	update_battery(s_battery_layer);
 }
 
 
