@@ -9,6 +9,12 @@
         <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
+        <style>
+            #draw_invert {
+                visibility : hidden
+            }
+        </style>
+
         <script type="text/javascript">
             var config = {};
 
@@ -35,6 +41,10 @@
                 $('#draw_invert').prop('checked', config.draw_invert);
             };
 
+            function ShowOptions() {
+                $('#draw_invert').show();
+            };
+
             function SaveAndExit() {
                 config.draw_invert = $('#draw_invert').prop('checked');
 
@@ -46,6 +56,7 @@
             $(function () {
                 ReadConfig();
                 SetStartingValues();
+                ShowOptions();
             });
         </script>
     </head>
