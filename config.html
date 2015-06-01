@@ -33,12 +33,19 @@
                 return defValue || false;
             };
 
+            function ValueChanged(key, value) {
+                console.log('option changed: {%s:%s}', key, value);
+                config[key] = value;
+            };
+
             function ReadConfig() {
                 config.draw_invert = GetQueryParam('draw_invert', false);
+                SetStartingValues();
             };
 
             function SetStartingValues() {
                 $('#draw_invert').prop('checked', config.draw_invert);
+                ShowOptions();
             };
 
             function ShowOptions() {
@@ -55,8 +62,6 @@
             // ON LOAD
             $(function () {
                 ReadConfig();
-                SetStartingValues();
-                ShowOptions();
             });
         </script>
     </head>
