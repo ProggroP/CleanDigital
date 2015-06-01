@@ -34,6 +34,11 @@
 
             function ReadConfig() {
                 config.draw_invert = GetQueryParam('draw_invert', false);
+                if (typeof config.draw_invert === 'string') {
+                    console.log('draw_invert is a string');
+                    config.draw_invert = (config.draw_invert === "True");
+                }
+
                 SetStartingValues();
             };
 
@@ -48,7 +53,6 @@
             function SetStartingValues() {
                 HideOptions();
 
-                console.log(config.draw_invert);
                 $('#draw_invert').prop('checked', config.draw_invert);
 
                 ShowOptions();
