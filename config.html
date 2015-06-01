@@ -9,12 +9,6 @@
         <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-        <style>
-            #draw_invert {
-                visibility : hidden
-            }
-        </style>
-
         <script type="text/javascript">
             var config = {};
 
@@ -43,13 +37,20 @@
                 SetStartingValues();
             };
 
-            function SetStartingValues() {
-                $('#draw_invert').prop('checked', config.draw_invert);
-                ShowOptions();
+            function HideOptions() {
+                $('#draw_invert').hide();
             };
 
             function ShowOptions() {
                 $('#draw_invert').show();
+            };
+
+            function SetStartingValues() {
+                HideOptions();
+
+                $('#draw_invert').prop('checked', config.draw_invert);
+
+                ShowOptions();
             };
 
             function SaveAndExit() {
