@@ -9,9 +9,11 @@
     "resources": {
         "media": [
             {
-                "file": "images/1.png",
-                "name": "IMAGE_THUMBNAIL",
-                "type": "png"
+                "characterRegex": "[:0-9]",
+                "compatibility": "2.7",
+                "file": "fonts/DS-DIGIB.TTF",
+                "name": "FONT_CLOCK_54",
+                "type": "font"
             },
             {
                 "characterRegex": "[ADFJMNOSabcdefgjlmnoprstuvy0-9 ]",
@@ -20,11 +22,9 @@
                 "type": "font"
             },
             {
-                "characterRegex": "[:0-9]",
-                "compatibility": "2.7",
-                "file": "fonts/DS-DIGIB.TTF",
-                "name": "FONT_CLOCK_54",
-                "type": "font"
+                "file": "images/1.png",
+                "name": "IMAGE_THUMBNAIL",
+                "type": "png"
             }
         ]
     },
