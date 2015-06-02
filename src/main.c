@@ -15,8 +15,11 @@ static void unload_resources();
 static void main_window_load(Window *w);
 static void main_window_unload(Window *w);
 
+void update_inversion();
+
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed);
 static void battery_handler(BatteryChargeState charge_state);
+static void in_recv_handler(DictionaryIterator *it, void *ctx);
 
 
 // fields
@@ -26,6 +29,7 @@ Window *s_main_window;
 GFont s_font_clock, s_font_date;
 TextLayer *s_clock_layer, *s_date_layer;
 Layer *s_battery_layer;
+InverterLayer *s_inverter_layer;
 int s_battery_pct = 0;
 
 
@@ -33,8 +37,8 @@ int s_battery_pct = 0;
 
 static void init()
 {
-	time_t temp = time(NULL);			// we keep tick_time as a static field for memory purposes
-	s_tick_time = localtime(&temp);		// (to be able to free the struct tm on deinit)
+	time_t temp = time(NULL);				// we keep tick_time as a static field for memory purposes
+	s_tick_time = localtime(&temp);	// (to be able to free the struct tm on deinit)
 	
 	load_resources();
 	
@@ -48,6 +52,9 @@ static void init()
 	
 	tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
 	battery_state_service_subscribe(battery_handler);
+	
+	app_message_register_inbox_received((AppMessageInboxReceived) in_recv_handler);
+	app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
 }
 
 static void deinit()
@@ -91,8 +98,12 @@ static void main_window_load(Window *w)
 	text_layer_set_font(s_date_layer, s_font_date);
 	layer_add_child(window_get_root_layer(w), text_layer_get_layer(s_date_layer));
 	
+	s_inverter_layer = inverter_layer_create(GRect(0, 0, 144, 168));
+	layer_add_child(window_get_root_layer(w), inverter_layer_get_layer(s_inverter_layer));
+	
 	update_time(s_clock_layer, s_tick_time);
 	update_date(s_date_layer, s_tick_time);
+	update_inversion();
 }
 
 static void main_window_unload(Window *w)
@@ -112,6 +123,30 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed)
 static void battery_handler(BatteryChargeState charge_state)
 {
 	update_battery(s_battery_layer);
+}
+
+void update_inversion()
+{
+	if (!persist_exists(0))
+		persist_write_bool(0, false);
+	
+	bool invert = persist_read_bool(0);
+	layer_set_hidden((Layer *)s_inverter_layer, !invert);
+}
+
+static void in_recv_handler(DictionaryIterator *it, void *ctx)
+{
+	Tuple *t = dict_read_first(it);
+	
+	if (t)
+	{
+		if (strcmp(t->value->cstring, "true") == 0)
+			persist_write_bool(0, true);
+		else
+			persist_write_bool(0, false);
+	}
+	
+	update_inversion();
 }
 
 
