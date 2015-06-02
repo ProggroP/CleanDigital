@@ -41,16 +41,24 @@
 
     <body>
         <div class="container">
-            <h1>CleanFace Settings</h1>
-
-            <h3>Actions</h3>
-
-            <div class="container">
-                <button onclick="InvertColors()">Invert Colors</button>
+            <div class="page-header">
+                <h1>CleanFace Settings</h1>
             </div>
 
+            <h2>Actions</h2>
+
             <div class="container">
-                <button onclick="Leave()">Cancel</button>
+                <p>
+                    <button class="btn btn-lg btn-primary" type="button" onclick="InvertColors()">
+                        Invert Colors
+                    </button>
+                </p>
+
+                <p>
+                    <button class="btn btn-lg btn-default" type="button" onclick="Leave()">
+                        Cancel
+                    </button>
+                </p>
             </div>
         </div>
     </body>
