@@ -36,6 +36,9 @@
                 var draw_invert = GetQueryParam('draw_invert', false).toString().toUpperCase();
                 config['draw_invert'] = (draw_invert === "TRUE");
 
+                console.log('dumping config');
+                console.log(config);
+                
                 SetStartingValues();
             };
 
