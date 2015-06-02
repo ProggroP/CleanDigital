@@ -61,6 +61,7 @@ static void deinit()
 {
 	unload_resources();
 	window_destroy(s_main_window);
+	
 	free(s_tick_time);
 }
 
@@ -111,6 +112,7 @@ static void main_window_unload(Window *w)
 	layer_destroy(s_battery_layer);
 	text_layer_destroy(s_clock_layer);
 	text_layer_destroy(s_date_layer);
+	layer_destroy((Layer *)s_inverter_layer);
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed)
@@ -140,10 +142,11 @@ static void in_recv_handler(DictionaryIterator *it, void *ctx)
 	
 	if (t)
 	{
-		if (strcmp(t->value->cstring, "true") == 0)
-			persist_write_bool(0, true);
-		else
-			persist_write_bool(0, false);
+		if (strcmp(t->value->cstring, "invert_colors") == 0)
+		{
+			bool old = persist_read_bool(0);
+			persist_write_bool(0, !old);
+		}
 	}
 	
 	update_inversion();
