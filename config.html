@@ -10,7 +10,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
         <script type="text/javascript">
-            var config = {};
+            var config = {}; // populate at load time
 
             function GetQueryParam(variable, defValue) {
                 var query = location.search.substring(1);
@@ -27,38 +27,78 @@
                 return defValue || false;
             };
 
+            function BuildConfigFromURL() {
+                config.invert = (GetQueryParam("invert", false) == "true");
+                
+                console.log('built config : ', JSON.stringify(config));
+            };
+
+            function UpdateDocument() {
+                if (config.invert) {
+                    $("img#ss-original").hide(0, function () {
+                        $("img#ss-inverted").show(0, function () {
+                            console.log('updated inversion screenshot');
+                        });
+                    });
+                } else {
+                    $("img#ss-inverted").hide(0, function () {
+                        $("img#ss-original").show(0, function () {
+                            console.log('updated inversion screenshot');
+                        });
+                    });
+                }
+            };
+
             function InvertColors() {
-                config.action = "invert_colors";
-                Leave();
+                config.invert = !config.invert;
+                UpdateDocument();
             };
 
             function Leave() {
                 return_to = GetQueryParam('return_to', 'pebblejs://close#');
                 document.location = return_to + encodeURIComponent(JSON.stringify(config));
             };
+
+            $(function () {
+                BuildConfigFromURL();
+                UpdateDocument();
+            });
         </script>
     </head>
 
     <body>
         <div class="container">
             <div class="page-header">
-                <h1>Settings - Clean</h1>
+                <h1>Settings</h1>
             </div>
-
-            <h2>Actions</h2>
-
+            
             <div class="container">
-                <p>
+                <!-- Preview -->
+                <div class="col-*-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Preview</h3>
+                        </div>
+
+                        <div class="panel-body">
+                            <img src="./screenshots/clean-black.png" id="ss-original" class="img-responsive center-block" />
+                            <img src="./screenshots/clean-white.png" id="ss-inverted" class="img-responsive center-block" />
+                        </div>
+                    </div>
+                </div>
+                
+                <h2>Actions</h2>
+                <div class="col-*-6">
                     <button class="btn btn-lg btn-primary" type="button" onclick="InvertColors()">
                         Invert Colors
                     </button>
-                </p>
-
-                <p>
-                    <button class="btn btn-lg btn-default" type="button" onclick="Leave()">
-                        Close
-                    </button>
-                </p>
+                </div>
+            </div>
+            
+            <div class="container">
+                <button class="btn btn-lg btn-default" type="button" onclick="Leave()">
+                    Done
+                </button>
             </div>
         </div>
     </body>
