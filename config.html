@@ -27,48 +27,15 @@
                 return defValue || false;
             };
 
-            function ValueChanged(key, value) {
-                console.log('option changed: {%s:%s}', key, value);
-                config[key] = value;
+            function InvertColors() {
+                config.action = "invert_colors";
+                Leave();
             };
 
-            function ReadConfig() {
-                var draw_invert = GetQueryParam('draw_invert', false).toString().toUpperCase();
-                config['draw_invert'] = (draw_invert === "TRUE");
-
-                console.log('dumping config');
-                console.log(config);
-                
-                SetStartingValues();
-            };
-
-            function HideOptions() {
-                $('#draw_invert').hide();
-            };
-
-            function ShowOptions() {
-                $('#draw_invert').show();
-            };
-
-            function SetStartingValues() {
-                HideOptions();
-
-                $('#draw_invert').prop('checked', config.draw_invert);
-
-                ShowOptions();
-            };
-
-            function SaveAndExit() {
-                config.draw_invert = $('#draw_invert').prop('checked');
-
-                var return_to = GetQueryParam('return_to', 'pebblejs://close#');
+            function Leave() {
+                return_to = GetQueryParam('return_to', 'pebblejs://close#');
                 document.location = return_to + encodeURIComponent(JSON.stringify(config));
             };
-
-            // ON LOAD
-            $(function () {
-                ReadConfig();
-            });
         </script>
     </head>
 
@@ -76,13 +43,9 @@
         <div class="container">
             <h1>CleanFace Settings</h1>
 
-            <form>
-                <input type="checkbox" name="draw_invert" id="draw_invert"
-                    onclick="ValueChanged('draw_invert', this.checked)" />
-                <label>Invert colors</label>
-            </form>
-
-            <button onclick="SaveAndExit()">Save and Close</button>
+            <h3>Options</h3>
+            <button onclick="InvertColors()">Invert Colors</button>
+            <button onclick="Leave()">Cancel</button>
         </div>
     </body>
 
