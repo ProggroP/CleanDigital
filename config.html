@@ -28,13 +28,13 @@
             };
 
             function BuildConfigFromURL() {
-                config.invert = (GetQueryParam("invert", false) == "true");
+                config.KEY_INVERT = (GetQueryParam("KEY_INVERT", false) == "true");
                 
                 console.log('built config : ', JSON.stringify(config));
             };
 
             function UpdateDocument() {
-                if (config.invert) {
+                if (config.KEY_INVERT) {
                     $("img#ss-original").hide(0, function () {
                         $("img#ss-inverted").show(0, function () {
                             console.log('updated inversion screenshot');
@@ -50,7 +50,7 @@
             };
 
             function InvertColors() {
-                config.invert = !config.invert;
+                config.KEY_INVERT = !config.KEY_INVERT;
                 UpdateDocument();
             };
 
