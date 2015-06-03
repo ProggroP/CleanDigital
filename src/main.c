@@ -5,6 +5,10 @@
 #define CLOCK_FONT_ID  RESOURCE_ID_FONT_CLOCK_54
 #define DATE_FONT_ID   RESOURCE_ID_FONT_MONTH_28
 
+enum {
+	KEY_INVERT = 0x0
+};
+
 	
 // functions
 
@@ -35,11 +39,21 @@ int s_battery_pct = 0;
 
 // function definitions
 
-static void init()
+static void init_local_storage()
+{
+	if (!persist_exists(KEY_INVERT))
+	{
+		APP_LOG(APP_LOG_LEVEL_DEBUG_VERBOSE, "No value for KEY_INVERT, defaulting to false");
+		persist_write_bool(KEY_INVERT, false);
+	}
+}
+
+void init()
 {
 	time_t temp = time(NULL);				// we keep tick_time as a static field for memory purposes
 	s_tick_time = localtime(&temp);	// (to be able to free the struct tm on deinit)
 	
+	init_local_storage();
 	load_resources();
 	
 	s_main_window = window_create();
@@ -57,7 +71,7 @@ static void init()
 	app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
 }
 
-static void deinit()
+void deinit()
 {
 	unload_resources();
 	window_destroy(s_main_window);
@@ -66,19 +80,19 @@ static void deinit()
 }
 
 
-static void load_resources()
+void load_resources()
 {
 	s_font_clock = fonts_load_custom_font(resource_get_handle(CLOCK_FONT_ID));
 	s_font_date  = fonts_load_custom_font(resource_get_handle(DATE_FONT_ID));
 }
 
-static void unload_resources()
+void unload_resources()
 {
 	fonts_unload_custom_font(s_font_clock);
 	fonts_unload_custom_font(s_font_date);
 }
 
-static void main_window_load(Window *w)
+void main_window_load(Window *w)
 {
 	s_clock_layer = text_layer_create(GRect(0, 34, 144, 65));
 	text_layer_set_background_color(s_clock_layer, GColorClear);
@@ -107,7 +121,7 @@ static void main_window_load(Window *w)
 	update_inversion();
 }
 
-static void main_window_unload(Window *w)
+void main_window_unload(Window *w)
 {
 	layer_destroy(s_battery_layer);
 	text_layer_destroy(s_clock_layer);
@@ -138,17 +152,10 @@ void update_inversion()
 
 static void in_recv_handler(DictionaryIterator *it, void *ctx)
 {
-	Tuple *t = dict_read_first(it);
+	Tuple *invert_tuple = dict_find(it, KEY_INVERT);
+	bool invert = strcmp(invert_tuple->value->cstring, "true") == 0;
 	
-	if (t)
-	{
-		if (strcmp(t->value->cstring, "invert_colors") == 0)
-		{
-			bool old = persist_read_bool(0);
-			persist_write_bool(0, !old);
-		}
-	}
-	
+	persist_write_bool(KEY_INVERT, invert);
 	update_inversion();
 }
 
