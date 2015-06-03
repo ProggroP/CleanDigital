@@ -46,8 +46,6 @@ static void init_local_storage()
 		APP_LOG(APP_LOG_LEVEL_DEBUG_VERBOSE, "No value for KEY_INVERT, defaulting to false");
 		persist_write_bool(KEY_INVERT, false);
 	}
-	
-	APP_LOG(APP_LOG_LEVEL_DEBUG, "KEY_INVERT: %d", persist_read_bool(KEY_INVERT));
 }
 
 void init()
