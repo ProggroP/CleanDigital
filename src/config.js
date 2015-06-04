@@ -1,6 +1,5 @@
-// var config_url = 'http://127.0.0.1:52120/config.html?v=1.3'; // for testing using Brackets
-
-var config_url = 'http://chaoticweg.github.io/PebbleCleanFace/config.html?v=1.3';
+var current_version = '1.5';
+var config_url = 'http://chaoticweg.github.io/PebbleCleanFace/config.html?v=' + current_version;
 
 Pebble.addEventListener('showConfiguration', function (e) {
 	var url    = config_url;
