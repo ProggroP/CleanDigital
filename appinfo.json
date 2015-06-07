@@ -16,6 +16,11 @@
                 "type": "png"
             },
             {
+                "file": "images/icon_plugged.png",
+                "name": "ICON_PLUGGED",
+                "type": "png"
+            },
+            {
                 "characterRegex": "[ADFJMNOSabcdefgjlmnoprstuvy0-9 ]",
                 "file": "fonts/DS-DIGI.TTF",
                 "name": "FONT_MONTH_28",
