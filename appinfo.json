@@ -1,45 +1,48 @@
 {
-    "appKeys": {
-        "KEY_INVERT": 0
-    },
-    "capabilities": [
-        "configurable"
-    ],
-    "companyName": "Shawn Lutch",
-    "longName": "Clean",
-    "projectType": "native",
-    "resources": {
-        "media": [
-            {
-                "file": "images/1.png",
-                "name": "IMAGE_THUMBNAIL",
-                "type": "png"
-            },
-            {
-                "file": "images/icon_plugged.png",
-                "name": "ICON_PLUGGED",
-                "type": "png"
-            },
-            {
-                "characterRegex": "[ADFJMNOSabcdefgjlmnoprstuvy0-9 ]",
-                "file": "fonts/DS-DIGI.TTF",
-                "name": "FONT_MONTH_28",
-                "type": "font"
-            },
-            {
-                "characterRegex": "[:0-9]",
-                "file": "fonts/DS-DIGIB.TTF",
-                "name": "FONT_CLOCK_54",
-                "type": "font"
-            }
-        ]
-    },
-    "sdkVersion": "2",
-    "shortName": "Clean",
-    "uuid": "1713273c-2c9e-4195-aa98-12f35aa84e5c",
-    "versionCode": 1,
-    "versionLabel": "1.5",
-    "watchapp": {
-        "watchface": true
-    }
+  "appKeys": {
+    "KEY_INVERT": 0
+  },
+  "capabilities": [
+    "configurable"
+  ],
+  "companyName": "Shawn Lutch",
+  "longName": "Clean",
+  "projectType": "native",
+  "resources": {
+    "media": [
+      {
+        "file": "images/1.png",
+        "name": "IMAGE_THUMBNAIL",
+        "type": "png"
+      },
+      {
+        "file": "images/icon_plugged.png",
+        "name": "ICON_PLUGGED",
+        "type": "png"
+      },
+      {
+        "characterRegex": "[ADFJMNOSabcdefgjlmnoprstuvy0-9 ]",
+        "file": "fonts/DS-DIGI.TTF",
+        "name": "FONT_MONTH_28",
+        "type": "font"
+      },
+      {
+        "characterRegex": "[:0-9]",
+        "file": "fonts/DS-DIGIB.TTF",
+        "name": "FONT_CLOCK_54",
+        "type": "font"
+      }
+    ]
+  },
+  "sdkVersion": "3",
+  "shortName": "Clean",
+  "uuid": "1713273c-2c9e-4195-aa98-12f35aa84e5c",
+  "versionCode": 1,
+  "versionLabel": "2.0",
+  "watchapp": {
+    "watchface": true
+  },
+  "targetPlatforms": [
+    "aplite"
+  ]
 }

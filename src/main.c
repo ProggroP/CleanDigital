@@ -1,9 +1,14 @@
 #include <pebble.h>
-#include "fields.h"			// fields and functions
-#include "ui.h"					// user interface
-#include "message.h"		// phone <--> pebble
-#include "date_time.h"
-#include "battery.h"
+
+#ifdef PBL_PLATFORM_APLITE
+	#include "aplite/fields.h"		// fields and functions
+	#include "aplite/ui.h"				// user interface
+	#include "aplite/message.h"		// phone <--> pebble
+	#include "aplite/date_time.h"
+	#include "aplite/battery.h"
+#else
+
+#endif
 
 
 // functions
