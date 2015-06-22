@@ -6,8 +6,8 @@
  */
 
 #define BATTERY_METER_MAX_WIDTH  124
-#define BATTERY_TOP_LINE_X       97
-#define BATTERY_METER_LINE_X     98
+#define BATTERY_TOP_LINE_X        97
+#define BATTERY_METER_LINE_X      98
 
 static int CALC_BATTERY_METER_WIDTH(int battery)
 {
