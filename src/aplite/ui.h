@@ -7,6 +7,8 @@
 
 #include "fields.h"
 
+bool s_was_plugged = false;
+
 void update_inversion()
 {
 	if (!persist_exists(KEY_INVERT))
@@ -27,6 +29,12 @@ void update_plugged()
 
 	// hide if not plugged in
 	layer_set_hidden((Layer *)s_plugged_layer, !s_plugged);
+
+	// flash backlight if state has changed
+	if (s_plugged != s_was_plugged)
+		light_enable_interaction();
+
+	s_was_plugged = s_plugged;
 }
 
 void update_ui()
@@ -34,7 +42,4 @@ void update_ui()
   // update ui elements
 	update_inversion();
 	update_plugged();
-
-  // flash the backlight to alert that we've updated
-	light_enable_interaction();
 }
