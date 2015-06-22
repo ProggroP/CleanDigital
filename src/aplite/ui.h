@@ -10,6 +10,13 @@
 bool s_was_plugged  = false;
 bool s_was_inverted = false;
 
+// alert the user to changes by vibrating and lighting up
+void alert_changes()
+{
+	light_enable_interaction();
+	vibes_short_pulse();
+}
+
 void update_inversion()
 {
 	if (!persist_exists(KEY_INVERT))
@@ -20,12 +27,12 @@ void update_inversion()
 
 	// flash backlight if state has changed
 	if (invert != s_was_inverted)
-		light_enable_interaction();
+		alert_changes();
 
 	s_was_inverted = invert;
 }
 
-static void update_battery()
+void update_battery()
 {
 	layer_mark_dirty(s_battery_layer);
 }
@@ -39,7 +46,7 @@ void update_plugged()
 
 	// flash backlight if state has changed
 	if (s_plugged != s_was_plugged)
-		light_enable_interaction();
+		alert_changes();
 
 	s_was_plugged = s_plugged;
 }
