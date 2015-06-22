@@ -7,7 +7,8 @@
 
 #include "fields.h"
 
-bool s_was_plugged = false;
+bool s_was_plugged  = false;
+bool s_was_inverted = false;
 
 void update_inversion()
 {
@@ -16,6 +17,12 @@ void update_inversion()
 
 	bool invert = persist_read_bool(KEY_INVERT);
 	layer_set_hidden((Layer *)s_inverter_layer, !invert);
+
+	// flash backlight if state has changed
+	if (invert != s_was_inverted)
+		light_enable_interaction();
+
+	s_was_inverted = invert;
 }
 
 static void update_battery()
